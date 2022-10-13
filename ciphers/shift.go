@@ -2,6 +2,8 @@ package shift
 
 import "fmt"
 
+// Message and encrypts are limited to lowercase letters
+// https://www.khanacademy.org/computing/computer-science/cryptography/ciphers/a/shift-cipher
 func Encrypt(msg string, key int) (string, error) {
 	if key < 0 || key > 26 {
 		return "", fmt.Errorf("key must be between 0 and 26")
