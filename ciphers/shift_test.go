@@ -22,16 +22,16 @@ func TestEncrypt(t *testing.T) {
 		{
 			name: "success",
 			in: in{
-				msg: "hello",
-				key: 3,
+				msg: "khan",
+				key: 19,
 			},
-			out: "khoor",
+			out: "datg",
 			err: nil,
 		},
 		{
 			name: "key out of range",
 			in: in{
-				msg: "hello",
+				msg: "khan",
 				key: 27,
 			},
 			out: "",
@@ -65,16 +65,16 @@ func TestDecrypt(t *testing.T) {
 		{
 			name: "success",
 			in: in{
-				msg: "khoor",
-				key: 3,
+				msg: "datg",
+				key: 19,
 			},
-			out: "hello",
+			out: "khan",
 			err: nil,
 		},
 		{
 			name: "key out of range",
 			in: in{
-				msg: "khoor",
+				msg: "datg",
 				key: -1,
 			},
 			out: "",
