@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestRSA(t *testing.T) {
@@ -34,6 +35,33 @@ func TestRSA(t *testing.T) {
 			out := decrypt(encrypt(tt.in.msg, pub), priv)
 			if diff := cmp.Diff(tt.out, out); diff != "" {
 				t.Errorf("decrypt(encrypt()) mismatch (-want +got):\n%s", diff)
+			}
+		})
+	}
+}
+
+func TestRSAUsingLibrary(t *testing.T) {
+	tests := []struct {
+		name string
+		msg  string
+	}{
+		{
+			name: "success",
+			msg:  "secret mmessage",
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			pub, priv, err := generateKeysUsingLibrary()
+			assert.NoError(t, err)
+			msg, err := encryptUsingLibrary(tt.msg, pub)
+			assert.NoError(t, err)
+			out, err := decryptUsingLibrary(msg, priv)
+			assert.NoError(t, err)
+			if diff := cmp.Diff(tt.msg, out); diff != "" {
+				t.Errorf("decryptUsingLibrary(encryptUsingLibrary()) mismatch (-want +got):\n%s", diff)
 			}
 		})
 	}

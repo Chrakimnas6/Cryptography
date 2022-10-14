@@ -2,6 +2,9 @@
 package rsa
 
 import (
+	"crypto/rand"
+	"crypto/rsa"
+	"crypto/sha256"
 	"fmt"
 	"math/big"
 )
@@ -61,4 +64,29 @@ func decrypt(msg string, privateKey privateKey) string {
 	}
 	fmt.Println(decrypted)
 	return decrypted
+}
+
+// Use library
+func generateKeysUsingLibrary() (*rsa.PublicKey, *rsa.PrivateKey, error) {
+	privateKey, err := rsa.GenerateKey(rand.Reader, 1024)
+	if err != nil {
+		return nil, nil, err
+	}
+	return &privateKey.PublicKey, privateKey, nil
+}
+
+func encryptUsingLibrary(msg string, publicKey *rsa.PublicKey) (string, error) {
+	ciphertext, err := rsa.EncryptOAEP(sha256.New(), rand.Reader, publicKey, []byte(msg), nil)
+	if err != nil {
+		return "", err
+	}
+	return string(ciphertext), nil
+}
+
+func decryptUsingLibrary(msg string, privateKey *rsa.PrivateKey) (string, error) {
+	plaintext, err := rsa.DecryptOAEP(sha256.New(), rand.Reader, privateKey, []byte(msg), nil)
+	if err != nil {
+		return "", err
+	}
+	return string(plaintext), nil
 }
