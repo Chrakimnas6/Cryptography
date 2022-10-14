@@ -61,7 +61,7 @@ func TestRSAUsingLibrary(t *testing.T) {
 			out, err := decryptUsingLibrary(msg, priv)
 			assert.NoError(t, err)
 			if diff := cmp.Diff(tt.msg, out); diff != "" {
-				t.Errorf("decryptUsingLibrary(encryptUsingLibrary()) mismatch (-want +got):\n%s", diff)
+				t.Errorf("decryptUsingLibrary() mismatch (-want +got):\n%s", diff)
 			}
 		})
 	}
