@@ -15,7 +15,6 @@ func TestRSA(t *testing.T) {
 		name string
 		in   in
 		out  string
-		err  error
 	}{
 		{
 			name: "success",
@@ -25,7 +24,6 @@ func TestRSA(t *testing.T) {
 				q:   59,
 			},
 			out: "khan",
-			err: nil,
 		},
 	}
 	for _, tt := range tests {
