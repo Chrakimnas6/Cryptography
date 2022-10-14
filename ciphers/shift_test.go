@@ -42,7 +42,7 @@ func TestEncrypt(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			out, err := Encrypt(tt.in.msg, tt.in.key)
+			out, err := encrypt(tt.in.msg, tt.in.key)
 			assert.Equal(t, tt.err, err)
 			if diff := cmp.Diff(tt.out, out); diff != "" {
 				t.Errorf("encrypt() mismatch (-want +got):\n%s", diff)
@@ -85,7 +85,7 @@ func TestDecrypt(t *testing.T) {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			out, err := Decrypt(tt.in.msg, tt.in.key)
+			out, err := decrypt(tt.in.msg, tt.in.key)
 			assert.Equal(t, tt.err, err)
 			if diff := cmp.Diff(tt.out, out); diff != "" {
 				t.Errorf("decrypt() mismatch (-want +got):\n%s", diff)
